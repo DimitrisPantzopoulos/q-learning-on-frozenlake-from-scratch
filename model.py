@@ -31,8 +31,6 @@ def greedy_action(q_table : np.ndarray, state : int) -> int:
     return int(np.argmax(q_table[state, :]))
 
 # Step 4 - sample_random_action
-import numpy as np
-
 def sample_random_action(action_space : gym.spaces.Discrete) -> int:
     """Draw a uniformly random action from the given Gymnasium action space"""
     return int(action_space.sample())
