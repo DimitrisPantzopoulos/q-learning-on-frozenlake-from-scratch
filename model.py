@@ -292,8 +292,29 @@ import numpy as np
 def extract_greedy_policy(q_table : np.ndarray) -> np.ndarray:
     return np.argmax(q_table, axis=1)
 
-# Step 15 - run_greedy_episode (not yet solved)
-# TODO: implement
+# Step 15 - run_greedy_episode
+import gymnasium as gym
+import numpy as np
+
+def run_greedy_episode(
+        env       : gym.Env, 
+        policy    : np.ndarray, 
+        seed      : int | None = None, 
+        max_steps : int        = 200
+    ) -> bool:
+    """Run one greedy episode and return True if the goal was reached."""
+    successful : bool = False
+    
+    observation, _ = env.reset(seed=seed)
+
+    for greedy_index in policy:
+        observation, reward, terminated, truncated, _ = env.step(greedy_index)
+
+        if terminated or truncated:
+            successful = True
+            break
+
+    return successful
 
 # Step 16 - evaluate_success_rate (not yet solved)
 # TODO: implement
