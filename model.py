@@ -310,7 +310,7 @@ def run_greedy_episode(
     for greedy_index in policy:
         observation, reward, terminated, truncated, _ = env.step(greedy_index)
 
-        if terminated or truncated:
+        if terminated or truncated or greedy_index >= max_steps:
             successful = True
             break
 
