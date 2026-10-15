@@ -290,7 +290,7 @@ def train_q_learning(
 import numpy as np
 
 def extract_greedy_policy(q_table : np.ndarray) -> np.ndarray:
-    return np.max(q_table, axis=1)
+    return np.argmax(q_table, axis=1)
 
 # Step 15 - run_greedy_episode (not yet solved)
 # TODO: implement
