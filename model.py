@@ -117,7 +117,6 @@ def td_target(
     Compute the bootstrap target used to update a state-action value.
     """
 
-    # TODO: compute r + gamma * max_a Q(next_state, a), zeroing the bootstrap when done.
     future_return : np.float64 = (
         gamma * max_q_value(q_table, next_state) if not done else 0.0
     )
