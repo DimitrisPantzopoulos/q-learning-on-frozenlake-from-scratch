@@ -123,8 +123,22 @@ def td_target(
 
     return reward + future_return
 
-# Step 9 - td_error (not yet solved)
-# TODO: implement
+# Step 9 - td_error
+def td_error(
+        target  : float, 
+        q_table : np.ndarray, 
+        state   : int, 
+        action  : int
+    ) -> float:
+    """
+    Return the Temporal Difference Error.
+
+    delta = target - Q(s', a')
+
+    where:
+        target = reward + gamma * Q(s', a')
+    """
+    return target - q_table[state, action]
 
 # Step 10 - q_learning_update (not yet solved)
 # TODO: implement
