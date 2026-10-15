@@ -210,8 +210,39 @@ def interaction_step(
 
     return int(observation), float(reward), bool(done)
 
-# Step 12 - run_training_episode (not yet solved)
-# TODO: implement
+# Step 12 - run_training_episode
+def run_training_episode(
+        env       : gym.Env, 
+        q_table   : np.ndarray, 
+        epsilon   : float, 
+        alpha     : float, 
+        gamma     : float, 
+        rng       : np.random.Generator, 
+        max_steps : int =200
+    ) -> float:
+    """
+    Simulate a training episode,
+    Repeatedly call interaction_step until done or 
+    time limit has been reached.
+    """
+    observation, _ = env.reset()
+
+    # Training Progress
+    total_reward : float = 0.0
+
+    # Terminating Condition
+    done          : bool = False
+    current_steps : int = 0
+
+    while not done or max_steps >= current_steps:
+        observation, reward, done = interaction_step(
+            env, q_table, observation, epsilon, alpha, gamma, rng
+        )
+
+        total_reward  += reward
+
+        current_steps += 1
+    return total_reward
 
 # Step 13 - train_q_learning (not yet solved)
 # TODO: implement
