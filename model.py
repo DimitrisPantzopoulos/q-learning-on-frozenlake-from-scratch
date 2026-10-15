@@ -174,8 +174,41 @@ def q_learning_update(
 
     return q_table[state, action]
 
-# Step 11 - interaction_step (not yet solved)
-# TODO: implement
+# Step 11 - interaction_step
+from typing import Tuple
+
+def interaction_step(
+        env     : gym.Env, 
+        q_table : np.ndarray, 
+        state   : int, 
+        epsilon : float, 
+        alpha   : float, 
+        gamma   : float, 
+        rng     : np.random.Generator
+    ) -> Tuple[int, float, bool]:
+    """
+    Select Epsilon-greed action, step env and 
+    then apply Q-learning update.
+
+    return (next_state, reward, done)
+    """
+    
+    # Pick Epsilon Greedy action
+    action : int = epsilon_greedy_action(
+        q_table, state, epsilon, env.action_space, rng 
+    )
+
+    # Make the step in the env    
+    observation, reward, terminated, truncated, _ = env.step(action)
+
+    done : bool = terminated or truncated
+
+    # Update the Q-Learning Table
+    q_learning_update(
+        q_table, state, action, reward, observation, done, alpha, gamma
+    )
+
+    return int(observation), float(reward), bool(done)
 
 # Step 12 - run_training_episode (not yet solved)
 # TODO: implement
