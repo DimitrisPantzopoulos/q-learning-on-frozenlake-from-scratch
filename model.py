@@ -31,12 +31,19 @@ def greedy_action(q_table : np.ndarray, state : int) -> int:
     return int(np.argmax(q_table[state, :]))
 
 # Step 4 - sample_random_action
-def sample_random_action(action_space : gym.spaces.Discrete) -> int:
+from gymnasium.spaces import Discrete
+
+def sample_random_action(action_space : Discrete) -> int:
     """Draw a uniformly random action from the given Gymnasium action space"""
     return int(action_space.sample())
 
-# Step 5 - should_explore (not yet solved)
-# TODO: implement
+# Step 5 - should_explore
+def should_explore(epsilon : float, rng : np.random.Generator) -> bool:
+    """Return True with probability epsilon using the provided numpy Generator."""
+    
+    if rng.random() < epsilon:
+        return True
+    return False
 
 # Step 6 - epsilon_greedy_action (not yet solved)
 # TODO: implement
