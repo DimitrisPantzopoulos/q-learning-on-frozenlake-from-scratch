@@ -45,8 +45,51 @@ def should_explore(epsilon : float, rng : np.random.Generator) -> bool:
         return True
     return False
 
-# Step 6 - epsilon_greedy_action (not yet solved)
-# TODO: implement
+# Step 6 - epsilon_greedy_action
+from gymnasium.spaces import Discrete
+
+import numpy as np
+
+def multiple_maximum_total_reward(
+        state_vector   : np.ndarray, 
+        maximum_reward : np.int64,
+    ) -> bool:
+
+    return np.sum(maximum_reward == state_vector) > 1
+
+def epsilon_greedy_action(
+        q_table      : np.ndarray, 
+        state        : int, 
+        epsilon      : float, 
+        action_space : Discrete, 
+        rng          : np.random.Generator
+    ) -> int:
+    """Return an epsilon-greedy action for the given state."""
+
+    # Should the agent explore this step?
+    does_explore : bool = should_explore(epsilon, rng)
+
+    # Exploration
+    if does_explore:
+        return sample_random_action(action_space)
+    
+    # Exploitation
+    state_vector : np.ndarray = q_table[state, :]
+
+    # Check if multiple actions share the same maximum total area.
+    maximum_reward : np.int64 = np.max(state_vector)
+
+    multiple_max : bool = multiple_maximum_total_reward(
+        state_vector,
+        maximum_reward
+    )
+
+    if multiple_max:
+        return int(rng.choice(
+            np.flatnonzero(maximum_reward == state_vector).tolist()
+        ))
+
+    return int(np.argmax(state_vector))
 
 # Step 7 - decay_epsilon (not yet solved)
 # TODO: implement
