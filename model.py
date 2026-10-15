@@ -316,6 +316,28 @@ def run_greedy_episode(
 
     return successful
 
-# Step 16 - evaluate_success_rate (not yet solved)
-# TODO: implement
+# Step 16 - evaluate_success_rate
+import gymnasium as gym
+import numpy as np
+
+def evaluate_success_rate(
+        env          : gym.Env, 
+        policy       : np.ndarray, 
+        num_episodes : int, 
+        seed         : int = 0, 
+        max_steps    : int = 200
+    ) -> float:
+
+    total_runs     : int = num_episodes
+    completed_runs : int = 0
+
+    for i in range(num_episodes):
+        successful : bool = run_greedy_episode(
+            env, policy, seed + i, max_steps
+        )
+
+        if successful:
+            completed_runs += 1
+
+    return completed_runs / total_runs
 
