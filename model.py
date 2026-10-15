@@ -140,8 +140,39 @@ def td_error(
     """
     return target - q_table[state, action]
 
-# Step 10 - q_learning_update (not yet solved)
-# TODO: implement
+# Step 10 - q_learning_update
+import numpy as np
+
+def q_learning_update(
+        q_table     : np.ndarray, 
+        state       : int, 
+        action      : int, 
+        reward      : float, 
+        next_state  : int, 
+        done        : bool, 
+        alpha       : float, 
+        gamma       : float
+    ) -> float:
+
+    """
+    Compute the new updated value of Q(s, a).
+
+    Q(s, a)_t+1 = Q(s, a)_t + alpha * TD
+
+    where:
+        TD = y - Q(s, a), The Temporal Distance, the signal used to train update the Q Table.
+    """
+    
+    temporal_difference : float = td_target(
+        reward, gamma, q_table, next_state, done
+    )
+
+    # Compute the gradient descent step
+    q_table[state, action] = q_table[state, action] + (
+        alpha * (temporal_difference - q_table[state, action])
+    )
+
+    return q_table[state, action]
 
 # Step 11 - interaction_step (not yet solved)
 # TODO: implement
