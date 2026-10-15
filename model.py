@@ -91,8 +91,19 @@ def epsilon_greedy_action(
 
     return int(np.argmax(state_vector))
 
-# Step 7 - decay_epsilon (not yet solved)
-# TODO: implement
+# Step 7 - decay_epsilon
+def decay_epsilon(
+        epsilon     : float, 
+        decay_rate  : float, 
+        min_epsilon : float
+    ):
+    # Decay epsilon using max(min_epsilon, epsilon * decay_rate)
+    """
+    Decay epsilon.
+    epsilon_t+1 = max(min_epsilon, epsilon_t * decay_rate).
+    """
+
+    return max(min_epsilon, epsilon * decay_rate)
 
 # Step 8 - td_target (not yet solved)
 # TODO: implement
