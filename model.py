@@ -177,6 +177,8 @@ def q_learning_update(
 # Step 11 - interaction_step
 from typing import Tuple
 
+import gymnasium as gym
+
 def interaction_step(
         env     : gym.Env, 
         q_table : np.ndarray, 
@@ -284,8 +286,11 @@ def train_q_learning(
 
     return q_table, episode_returns
 
-# Step 14 - extract_greedy_policy (not yet solved)
-# TODO: implement
+# Step 14 - extract_greedy_policy
+import numpy as np
+
+def extract_greedy_policy(q_table : np.ndarray) -> np.ndarray:
+    return np.max(q_table, axis=1)
 
 # Step 15 - run_greedy_episode (not yet solved)
 # TODO: implement
