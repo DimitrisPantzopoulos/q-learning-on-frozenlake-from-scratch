@@ -105,8 +105,24 @@ def decay_epsilon(
 
     return max(min_epsilon, epsilon * decay_rate)
 
-# Step 8 - td_target (not yet solved)
-# TODO: implement
+# Step 8 - td_target
+def td_target(
+        reward     : float, 
+        gamma      : float, 
+        q_table    : np.ndarray, 
+        next_state : int, 
+        done       : bool
+    ) -> float:
+    """
+    Compute the bootstrap target used to update a state-action value.
+    """
+
+    # TODO: compute r + gamma * max_a Q(next_state, a), zeroing the bootstrap when done.
+    future_return : np.float64 = (
+        gamma * max_q_value(q_table, next_state) if not done else 0.0
+    )
+
+    return reward + future_return
 
 # Step 9 - td_error (not yet solved)
 # TODO: implement
