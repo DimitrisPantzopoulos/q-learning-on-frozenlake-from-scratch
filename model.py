@@ -18,7 +18,7 @@ def init_q_table(num_states : int, num_actions : int) -> np.ndarray:
 # Step 2 - max_q_value
 import numpy as np
 
-def max_q_value(q_table : np.ndarray, state : int) -> np.ndarray:
+def max_q_value(q_table : np.ndarray, state : int) -> np.float64:
     """Return the maximum Q value across all actions for the given state."""
 
     return np.max(q_table[state, :])
