@@ -302,19 +302,18 @@ def run_greedy_episode(
         seed      : int | None = None, 
         max_steps : int        = 200
     ) -> bool:
-    """Run one greedy episode and return True if the goal was reached."""
-    successful : bool = False
-    
+    """Run one greedy episode and return True if the goal was reached."""    
     observation, _ = env.reset(seed=seed)
 
-    for greedy_index in policy:
-        observation, reward, terminated, truncated, _ = env.step(greedy_index)
+    for idx in range(max_steps):
+        greedy_choice : int = policy[observation]
 
-        if terminated or truncated or greedy_index >= max_steps:
-            successful = True
-            break
+        observation, reward, terminated, truncated, _ = env.step(greedy_choice)
 
-    return successful
+        if terminated or truncated or idx >= max_steps:
+            return reward > 0
+
+    return False
 
 # Step 16 - evaluate_success_rate
 import gymnasium as gym
